@@ -87,6 +87,15 @@ function Form() {
           )} />
         {errors.age && <p className="error">{errors.age?.message}</p>}
         <br /><br />
+        <label htmlFor="country">Country</label>
+        <br />
+        <select id="country" {...register("country")}>
+          <option value="">Select Country</option>
+          <option value="india">India</option>
+          <option value="pakistan">Pakistan</option>
+          <option value="bangladesh">Bangladesh</option>
+        </select>
+        <br /><br />
         <label htmlFor="dob">DOB</label>
         <input type="date" id='dob'
           {...register("dob", {
