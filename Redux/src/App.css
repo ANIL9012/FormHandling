@@ -1,0 +1,70 @@
+body {
+  margin: 0;
+  font-family: "Poppins", sans-serif;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+/* Card */
+.card {
+  background: #fff;
+  padding: 40px;
+  border-radius: 20px;
+  text-align: center;
+  width: 300px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+/* Title */
+.title {
+  margin-bottom: 20px;
+  color: #333;
+}
+
+/* Counter */
+.counter {
+  font-size: 48px;
+  margin: 20px 0;
+  color: #764ba2;
+}
+
+/* Buttons */
+.btn-group {
+  display: flex;
+  justify-content: space-between;
+}
+
+.btn {
+  padding: 10px 15px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: 0.3s;
+}
+
+/* Increment Button */
+.increment {
+  background: #4caf50;
+  color: white;
+}
+
+.increment:hover {
+  background: #43a047;
+}
+
+/* Decrement Button */
+.decrement {
+  background: #f44336;
+  color: white;
+}
+
+.decrement:hover {
+  background: #d32f2f;
+}
