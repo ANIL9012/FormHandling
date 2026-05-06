@@ -1,39 +1,32 @@
 import React, { useState } from "react";
 
 function App() {
-  // making state for our applications
   const [height, setHeight] = useState(0);
   const [weight, setWeight] = useState(0);
   const [bmi, setBmi] = useState("");
   const [message, setMessage] = useState("");
 
-  // Logic
-
   const handleSubmit = (e) => {
     e.preventDefault();
-    if(weight === 0 || height === 0){
+    if (weight === 0 || height === 0) {
       alert("Please Enter a valid value");
-    }else{
-      let bmi = (weight/(height*height)*703)
-      setBmi(bmi.toFixed(1))
+    } else {
+      let bmi = (weight / (height * height)) * 703;
+      setBmi(bmi.toFixed(1));
 
-      //
-
-      if(bmi<25){
-        setMessage("You are Underweight")
-      }else if(bmi>=25 && bmi <30){
-        setMessage("You are a healthy weight")
-      }else{
-        setMessage("You are overweigth")
+      if (bmi < 25) {
+        setMessage("You are Underweight");
+      } else if (bmi >= 25 && bmi < 30) {
+        setMessage("You are a healthy weight");
+      } else {
+        setMessage("You are overweigth");
       }
     }
   };
 
-  // Reload
-
-  let relaod = ()=>{
-    window.location.reload()
-  }
+  let relaod = () => {
+    window.location.reload();
+  };
 
   return (
     <div className="app">
