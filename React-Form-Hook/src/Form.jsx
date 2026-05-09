@@ -1,19 +1,21 @@
 import { useForm } from "react-hook-form";
 import { DevTool } from "@hookform/devtools";
+import { useEffect } from "react";
 function Form() {
-  const { register, handleSubmit, control, formState } = useForm({
-    defaultValues: {
-      name: "Anil Kumar",
-      email: "",
-      age: 18,
-      social: {
-        facebook: "",
-        twitter: "",
+  const { register, handleSubmit, control, formState, setValue, getValues } =
+    useForm({
+      defaultValues: {
+        name: "Anil Kumar",
+        email: "",
+        age: 18,
+        social: {
+          facebook: "",
+          twitter: "",
+        },
+        phonenumber: ["", ""],
+        dob: new Date(),
       },
-      phonenumber: ["", ""],
-      dob: new Date(),
-    },
-  });
+    });
   // const { register, handleSubmit, control, formState } = useForm({
   //   defaultValues: async () => {
   //     const response = await fetch("https://jsonplaceholder.typicode.com/users/1");
@@ -25,15 +27,38 @@ function Form() {
   //     }
   //   }
   // });
-  const { errors } = formState;
+  const { errors, dirtyFields, touchedFields } = formState;
 
   // console.log(useForm());
+
+  console.log({ dirtyFields, touchedFields });
 
   const onSubmit = (data) => {
     console.log(data);
   };
+
+  // const watchForm = watch();
+
+  // useEffect(() => {
+  //   console.log(watchForm);
+  // }, [watchForm]);
+
+  const getFormValues = () => {
+    const values = getValues();
+    console.log(values);
+  };
+
+  const setFormValues = () => {
+    setValue("name", "Testing", {
+      shouldDirty: true,
+      shouldTouch: true,
+      shouldValidate: true,
+    });
+  };
+
   return (
     <>
+      {/* <p>{JSON.stringify(watchForm)}</p> */}
       <form onSubmit={handleSubmit(onSubmit)}>
         <label htmlFor="name">Name</label>
         <input
@@ -187,6 +212,12 @@ function Form() {
         <br />
         <br />
         <button type="submit">Submit</button>
+        <button type="button" onClick={getFormValues}>
+          Get Form Values
+        </button>
+        <button type="button" onClick={setFormValues}>
+          Set Values
+        </button>
         <DevTool control={control} placement="top-left" />
       </form>
     </>
