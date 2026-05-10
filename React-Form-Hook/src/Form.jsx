@@ -149,7 +149,6 @@ function Form() {
         </label>
         {errors.gender && <p className="error">Gender is required</p>}
         <br />
-        <br />
         <label htmlFor="skills">Skills</label>
         <label htmlFor="skills">
           <input
