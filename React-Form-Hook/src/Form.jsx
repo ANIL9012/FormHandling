@@ -1,21 +1,28 @@
-import { useForm } from "react-hook-form";
+import { useForm, Watch } from "react-hook-form";
 import { DevTool } from "@hookform/devtools";
 import { useEffect } from "react";
 function Form() {
-  const { register, handleSubmit, control, formState, setValue, getValues } =
-    useForm({
-      defaultValues: {
-        name: "Anil Kumar",
-        email: "",
-        age: 18,
-        social: {
-          facebook: "",
-          twitter: "",
-        },
-        phonenumber: ["", ""],
-        dob: new Date(),
+  const {
+    register,
+    handleSubmit,
+    control,
+    formState,
+    watch,
+    setValue,
+    getValues,
+  } = useForm({
+    defaultValues: {
+      name: "",
+      email: "",
+      age: 18,
+      social: {
+        facebook: "",
+        twitter: "",
       },
-    });
+      phonenumber: ["", ""],
+      dob: new Date(),
+    },
+  });
   // const { register, handleSubmit, control, formState } = useForm({
   //   defaultValues: async () => {
   //     const response = await fetch("https://jsonplaceholder.typicode.com/users/1");
@@ -27,11 +34,21 @@ function Form() {
   //     }
   //   }
   // });
-  const { errors, dirtyFields, touchedFields } = formState;
+  const {
+    errors,
+    dirtyFields,
+    touchedFields,
+    isDirty,
+    isValid,
+    isSubmitting,
+    isSubmitted,
+  } = formState;
 
   // console.log(useForm());
 
-  console.log({ dirtyFields, touchedFields });
+  // console.log({ dirtyFields, touchedFields, isDirty });
+
+  console.log({ isSubmitting, isSubmitted });
 
   const onSubmit = (data) => {
     console.log(data);
@@ -56,10 +73,14 @@ function Form() {
     });
   };
 
+  const onError = (errors) => {
+    console.log("Errors:", errors);
+  };
+
   return (
     <>
       {/* <p>{JSON.stringify(watchForm)}</p> */}
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form onSubmit={handleSubmit(onSubmit, onError)}>
         <label htmlFor="name">Name</label>
         <input
           type="text"
@@ -77,6 +98,7 @@ function Form() {
           id="email"
           {...register("email", {
             required: "Email is required",
+            disabled: watch("name") === "",
             pattern: {
               value: /^[^@ ]+@[^@ ]+\.[^@ .]{2,}$/,
               message: "Invalid email address",
@@ -105,6 +127,7 @@ function Form() {
           type="number"
           id="age"
           {...register("age", {
+            disabled: watch("email") === "",
             valueAsNumber: true,
             required: "Age is required",
             min: {
@@ -210,6 +233,10 @@ function Form() {
         />
         <br />
         <br />
+        {/* <button type="submit" disabled={!isValid}>
+          Submit
+        </button> */}
+
         <button type="submit">Submit</button>
         <button type="button" onClick={getFormValues}>
           Get Form Values
