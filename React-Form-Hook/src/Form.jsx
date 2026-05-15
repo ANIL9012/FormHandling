@@ -1,4 +1,4 @@
-import { useForm, Watch } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { DevTool } from "@hookform/devtools";
 import { useEffect } from "react";
 function Form() {
@@ -10,6 +10,8 @@ function Form() {
     watch,
     setValue,
     getValues,
+    reset,
+    trigger,
   } = useForm({
     defaultValues: {
       name: "",
@@ -22,6 +24,7 @@ function Form() {
       phonenumber: ["", ""],
       dob: new Date(),
     },
+    // mode: "onBlur",
   });
   // const { register, handleSubmit, control, formState } = useForm({
   //   defaultValues: async () => {
@@ -42,13 +45,15 @@ function Form() {
     isValid,
     isSubmitting,
     isSubmitted,
+    isSubmitSuccessful,
+    submitCount,
   } = formState;
 
   // console.log(useForm());
 
   // console.log({ dirtyFields, touchedFields, isDirty });
 
-  console.log({ isSubmitting, isSubmitted });
+  console.log({ isSubmitting, isSubmitted, isSubmitSuccessful, submitCount });
 
   const onSubmit = (data) => {
     console.log(data);
@@ -76,6 +81,12 @@ function Form() {
   const onError = (errors) => {
     console.log("Errors:", errors);
   };
+
+  useEffect(() => {
+    if (isSubmitSuccessful) {
+      reset();
+    }
+  }, [isSubmitSuccessful]);
 
   return (
     <>
@@ -115,6 +126,13 @@ function Form() {
                   !value.endsWith("@blacklisted.com") ||
                   "This domain is not allowed."
                 );
+              },
+              availableEmail: async (value) => {
+                const response = await fetch(
+                  `https://jsonplaceholder.typicode.com/users?email=${value}`,
+                );
+                const data = await response.json();
+                return data.length === 0 || "Email allready exists.";
               },
             },
           })}
@@ -243,6 +261,12 @@ function Form() {
         </button>
         <button type="button" onClick={setFormValues}>
           Set Values
+        </button>
+        <button type="button" onClick={() => reset()}>
+          Reset Form
+        </button>
+        <button type="button" onClick={() => trigger()}>
+          Validate
         </button>
         <DevTool control={control} placement="top-left" />
       </form>
