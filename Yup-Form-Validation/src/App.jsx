@@ -1,7 +1,9 @@
+import Form from "./Form";
+
 function App() {
   return (
     <>
-      <h1>Yup Form Validation</h1>
+      <Form />
     </>
   );
 }

@@ -21,6 +21,10 @@ function Form() {
       <form onSubmit={handleSubmit(onSubmit)}>
         <input type="text" {...register("name")} placeholder="Name" />
         <p className="error">{errors.name?.message}</p>
+
+        <input type="number" {...register("age")} placeholder="Age" />
+        <p className="error">{errors.age?.message}</p>
+
         <input type="email" {...register("email")} placeholder="Email" />
         <p className="error">{errors.email?.message}</p>
         <input
@@ -29,6 +33,12 @@ function Form() {
           placeholder="Password"
         />
         <p className="error">{errors.password?.message}</p>
+        <input
+          type="password"
+          {...register("confirmpassword")}
+          placeholder="confirm password"
+        />
+        <p className="error">{errors.confirmpassword?.message}</p>
 
         <button type="submit">Register</button>
       </form>
